@@ -1,0 +1,100 @@
+{
+  "items": [
+    {
+      "id": "EVT-102",
+      "type": "Operational Event",
+      "source": "SCADA",
+      "asset": "INV-03",
+      "description": "Inverter INV-03 unavailable for 14.2 hours due to grid fault protection trip",
+      "linkedCause": "Availability",
+      "date": "2026-05-18",
+      "confidence": 94,
+      "calculation": "14.2h × 100kW rated × 0.4 capacity factor = 0.568 MWh → scaled to site = 5.7 GWh contribution",
+      "tags": ["inverter", "downtime", "equipment"]
+    },
+    {
+      "id": "MTR-229",
+      "type": "Meter Reading",
+      "source": "Energy Meter",
+      "asset": "MAIN-METER",
+      "description": "Main generation meter recorded 287 GWh actual output for May 2026",
+      "linkedCause": "Performance Gap",
+      "date": "2026-05-31",
+      "confidence": 99,
+      "calculation": "Actual generation = 287.0 GWh (meter validated, no data gaps)",
+      "tags": ["meter", "generation", "primary"]
+    },
+    {
+      "id": "CALC-042",
+      "type": "Calculation",
+      "source": "Attribution Engine",
+      "asset": "SYSTEM",
+      "description": "Expected minus actual generation = performance gap of 23 GWh for May 2026",
+      "linkedCause": "Performance Gap",
+      "date": "2026-06-01",
+      "confidence": 98,
+      "calculation": "Expected 310.0 GWh − Actual 287.0 GWh = 23.0 GWh gap",
+      "tags": ["calculation", "gap", "attribution"]
+    },
+    {
+      "id": "CALC-043",
+      "type": "Calculation",
+      "source": "Attribution Engine",
+      "asset": "SYSTEM",
+      "description": "Annual degradation model estimates 1.8 GWh loss in May from 0.5%/yr panel degradation",
+      "linkedCause": "Degradation",
+      "date": "2026-06-01",
+      "confidence": 85,
+      "calculation": "100 MW × 0.005 × (5/12) year × 744h × 0.2 cf = 1.55 MWh → scaled 1.8 GWh",
+      "tags": ["degradation", "model", "equipment"]
+    },
+    {
+      "id": "EVT-109",
+      "type": "Operational Event",
+      "source": "Grid Control",
+      "asset": "GRID-INTERCON",
+      "description": "Grid curtailment instruction received on May 22–23 for frequency regulation",
+      "linkedCause": "Curtailment",
+      "date": "2026-05-22",
+      "confidence": 91,
+      "calculation": "Curtailment period 11.4h × 100 MW × 0.25 CF = 285 MWh → 2.9 GWh attributed",
+      "tags": ["curtailment", "grid", "external"]
+    },
+    {
+      "id": "WX-001",
+      "type": "Weather Data",
+      "source": "Met Station",
+      "asset": "MET-01",
+      "description": "Irradiance deficit of 6.3% vs P50 forecast due to above-average cloud cover in May",
+      "linkedCause": "Irradiance",
+      "date": "2026-05-31",
+      "confidence": 96,
+      "calculation": "GHI deficit × panel area × efficiency = 8.2 GWh vs P50 baseline",
+      "tags": ["weather", "irradiance", "resource"]
+    },
+    {
+      "id": "INS-014",
+      "type": "Inspection Report",
+      "source": "O&M Team",
+      "asset": "PANEL-ARRAY-A",
+      "description": "Soiling inspection confirmed dust accumulation of 2.1 g/m² on Array A panels",
+      "linkedCause": "Soiling",
+      "date": "2026-05-26",
+      "confidence": 88,
+      "calculation": "Soiling loss model: 2.1 g/m² → ~1.8% efficiency reduction → 3.4 GWh monthly loss",
+      "tags": ["soiling", "inspection", "operations"]
+    },
+    {
+      "id": "SCADA-018",
+      "type": "SCADA Log",
+      "source": "SCADA",
+      "asset": "PARK-CTRL",
+      "description": "Park controller log confirms active curtailment commands from grid operator on May 22 11:00–22:24",
+      "linkedCause": "Curtailment",
+      "date": "2026-05-22",
+      "confidence": 97,
+      "calculation": "Corroborates EVT-109; duration confirmed as 11.4 hours",
+      "tags": ["curtailment", "scada", "grid"]
+    }
+  ]
+}

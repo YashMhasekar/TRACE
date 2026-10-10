@@ -1,0 +1,23 @@
+check_name,status,expected,actual,description
+PHYSICAL_DATASET,PASS,> 0 rows,5664.0,Physical dataset contains observations.
+OBSERVATION_ATTRIBUTION,PASS,> 0 rows,502.0,Observation-level attribution dataset exists.
+EPISODE_ATTRIBUTION,PASS,> 0 episodes,127.0,Episode-level attribution records exist.
+DECISION_EPISODE_COUNT,PASS,127,127.0,Every performance episode has a decision record.
+EVIDENCE_EPISODE_COUNT,PASS,127,127.0,Every performance episode has an evidence chain.
+EPISODE_ATTRIBUTION_RECONCILIATION,PASS,≤ 0.1 kWh error,0.022,Observed episode variance equals attributed components plus unexplained variance within rounding tolerance.
+OBSERVATION_ATTRIBUTION_RECONCILIATION,PASS,≤ 0.1 kWh error,0.011,Observation-level attribution reconciles to observed variance within rounding tolerance.
+EPISODE_VS_OBSERVATION_VARIANCE,PASS,≤ 0.1 kWh difference,0.033,Episode-level variance matches observation-level variance within rounding tolerance.
+RECOVERY_CAP,PASS,≤ 1850.583 kWh,1850.583,Reconciled recovery cannot exceed the positive period-level generation gap.
+RECOVERY_DIRECTION,PASS,>= 1850.583 kWh,3174.572,Reconciled recovery cannot exceed raw episode recovery.
+COMMERCIAL_GENERATION_GAP,PASS,Expected - Actual,1850.583,Commercial generation gap matches expected minus actual generation.
+GENERATION_REVENUE_CALCULATION,PASS,Generation gap × tariff × settlement factor,98.73,Generation-driven revenue impact matches commercial assumptions.
+EVIDENCE_CHAIN_COMPLETENESS,PASS,0 missing episode IDs,0.0,Every decision episode has a corresponding evidence chain.
+DATA_QUALITY_PROTECTION,PASS,0 incorrectly recoverable data-quality episodes,0.0,Data-quality evidence must not automatically become confirmed recoverable production loss.
+NO_SILENT_LEFTOVER,PASS,Explicit unexplained_kwh field,930.607,Unexplained variance remains explicitly represented rather than silently assigned.
+STORED_RECONCILIATION_ERROR,PASS,≤ 0.1 kWh,0.0,Stored episode reconciliation error remains within tolerance.
+NON_NEGATIVE_EXPECTED_GENERATION,PASS,0 negative expected-generation records,0.0,Expected generation must be non-negative.
+NON_NEGATIVE_ACTUAL_GENERATION,PASS,0 negative actual-generation records,0.0,Actual generation must be non-negative.
+UNIQUE_EPISODE_IDS,PASS,0 duplicate episode IDs,0.0,Each performance episode must have one unique identifier.
+TOTAL_CHECKS,INFO,19,19,Total integrity checks executed.
+FAILED_CHECKS,PASS,0,0,Number of failed integrity checks.
+OVERALL_STATUS,PASS,PASS,PASS,Overall TRACE data integrity status.

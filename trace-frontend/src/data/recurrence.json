@@ -1,0 +1,115 @@
+{
+  "periods": ["Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026", "May 2026"],
+  "causes": [
+    {
+      "id": "availability",
+      "cause": "Availability",
+      "category": "Equipment",
+      "occurrences": 4,
+      "totalPeriods": 6,
+      "frequencyPct": 66.7,
+      "status": "Recurring",
+      "avgLossGwh": 4.9,
+      "maxLossGwh": 5.7,
+      "controllability": "High",
+      "confidence": 94,
+      "priorityScore": 82,
+      "periodData": [
+        { "period": "Dec 2025", "occurred": true, "lossGwh": 4.2 },
+        { "period": "Jan 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Feb 2026", "occurred": true, "lossGwh": 3.8 },
+        { "period": "Mar 2026", "occurred": true, "lossGwh": 5.1 },
+        { "period": "Apr 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "May 2026", "occurred": true, "lossGwh": 5.7 }
+      ]
+    },
+    {
+      "id": "soiling",
+      "cause": "Soiling",
+      "category": "Operations",
+      "occurrences": 3,
+      "totalPeriods": 6,
+      "frequencyPct": 50.0,
+      "status": "Watch",
+      "avgLossGwh": 2.8,
+      "maxLossGwh": 3.4,
+      "controllability": "High",
+      "confidence": 88,
+      "priorityScore": 61,
+      "periodData": [
+        { "period": "Dec 2025", "occurred": false, "lossGwh": 0 },
+        { "period": "Jan 2026", "occurred": true, "lossGwh": 2.1 },
+        { "period": "Feb 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Mar 2026", "occurred": true, "lossGwh": 2.9 },
+        { "period": "Apr 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "May 2026", "occurred": true, "lossGwh": 3.4 }
+      ]
+    },
+    {
+      "id": "curtailment",
+      "cause": "Curtailment",
+      "category": "Grid",
+      "occurrences": 2,
+      "totalPeriods": 6,
+      "frequencyPct": 33.3,
+      "status": "Intermittent",
+      "avgLossGwh": 2.4,
+      "maxLossGwh": 2.9,
+      "controllability": "Low",
+      "confidence": 91,
+      "priorityScore": 28,
+      "periodData": [
+        { "period": "Dec 2025", "occurred": false, "lossGwh": 0 },
+        { "period": "Jan 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Feb 2026", "occurred": true, "lossGwh": 1.9 },
+        { "period": "Mar 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Apr 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "May 2026", "occurred": true, "lossGwh": 2.9 }
+      ]
+    },
+    {
+      "id": "irradiance",
+      "cause": "Irradiance",
+      "category": "Resource",
+      "occurrences": 2,
+      "totalPeriods": 6,
+      "frequencyPct": 33.3,
+      "status": "Intermittent",
+      "avgLossGwh": 6.5,
+      "maxLossGwh": 8.2,
+      "controllability": "None",
+      "confidence": 96,
+      "priorityScore": 15,
+      "periodData": [
+        { "period": "Dec 2025", "occurred": true, "lossGwh": 4.8 },
+        { "period": "Jan 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Feb 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Mar 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "Apr 2026", "occurred": false, "lossGwh": 0 },
+        { "period": "May 2026", "occurred": true, "lossGwh": 8.2 }
+      ]
+    },
+    {
+      "id": "degradation",
+      "cause": "Degradation",
+      "category": "Equipment",
+      "occurrences": 6,
+      "totalPeriods": 6,
+      "frequencyPct": 100.0,
+      "status": "Chronic",
+      "avgLossGwh": 1.6,
+      "maxLossGwh": 1.8,
+      "controllability": "Low",
+      "confidence": 85,
+      "priorityScore": 38,
+      "periodData": [
+        { "period": "Dec 2025", "occurred": true, "lossGwh": 1.4 },
+        { "period": "Jan 2026", "occurred": true, "lossGwh": 1.5 },
+        { "period": "Feb 2026", "occurred": true, "lossGwh": 1.5 },
+        { "period": "Mar 2026", "occurred": true, "lossGwh": 1.6 },
+        { "period": "Apr 2026", "occurred": true, "lossGwh": 1.7 },
+        { "period": "May 2026", "occurred": true, "lossGwh": 1.8 }
+      ]
+    }
+  ]
+}

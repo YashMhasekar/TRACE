@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pymongo[srv]
+pydantic
+pydantic-settings
+python-dotenv
+firebase-admin
+pandas
+joblib
+scikit-learn
+numpy
+httpx
+groq
+python-multipart

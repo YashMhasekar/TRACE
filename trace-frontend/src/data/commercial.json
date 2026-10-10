@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "expectedRevenue": 18600000,
+    "actualRevenue": 17100000,
+    "revenueGap": -1500000,
+    "revenueGapPct": -8.06
+  },
+  "breakdown": [
+    {
+      "id": "generation-impact",
+      "label": "Generation Impact",
+      "description": "Revenue loss directly attributable to generation shortfall (23 GWh × tariff)",
+      "amount": -1373000,
+      "pct": 91.5,
+      "type": "generation",
+      "driver": "23.0 GWh × $59.7/MWh blended tariff"
+    },
+    {
+      "id": "curtailment-penalty",
+      "label": "Curtailment Adjustment",
+      "description": "Grid curtailment compensation adjustment per PPA terms",
+      "amount": -62000,
+      "pct": 4.1,
+      "type": "commercial",
+      "driver": "2.9 GWh curtailed × partial compensation clause"
+    },
+    {
+      "id": "settlement-adjustment",
+      "label": "Settlement Adjustment",
+      "description": "Energy settlement reconciliation against metered import/export schedule",
+      "amount": -45000,
+      "pct": 3.0,
+      "type": "commercial",
+      "driver": "Schedule deviation penalty Q2 settlement"
+    },
+    {
+      "id": "tariff-adjustment",
+      "label": "Tariff / Price Variance",
+      "description": "Spot price deviation from contracted tariff baseline",
+      "amount": -20000,
+      "pct": 1.4,
+      "type": "commercial",
+      "driver": "May avg spot $58.1 vs contracted $59.7/MWh"
+    }
+  ],
+  "note": "Generation impact and commercial settlement are tracked separately. Performance expectation is based on P50 model output; settlement is based on metered delivery per PPA schedule."
+}

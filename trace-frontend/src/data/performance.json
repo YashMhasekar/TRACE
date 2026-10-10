@@ -1,0 +1,135 @@
+{
+  "_source": "NREL PVDAQ System 1430 — January–February 2017, 15-minute intervals",
+  "_note": "Weekly aggregates. Jan=training period (reference). Feb=test period (evaluation). Gap computed as expected−actual.",
+  "summary": {
+    "trainPeriod": "Jan 2017 (W01–W04)",
+    "testPeriod": "Feb 2017 (W05–W08)",
+    "testMAE_kW": 17.23,
+    "testR2": 0.9089,
+    "trainMAE_kW": 11.60,
+    "expectedKwh": 28140,
+    "actualKwh": 25992,
+    "varianceKwh": -2148,
+    "variancePct": -7.63
+  },
+  "timeSeries": [
+    {
+      "week": "W01",
+      "label": "Jan W1",
+      "dates": "Jan 1–7 2017",
+      "period": "train",
+      "expectedKwh": 2980,
+      "actualKwh": 2830,
+      "gapKwh": -150,
+      "gapPct": -5.03,
+      "note": "Reference period — gap shown for information only"
+    },
+    {
+      "week": "W02",
+      "label": "Jan W2",
+      "dates": "Jan 8–14 2017",
+      "period": "train",
+      "expectedKwh": 3210,
+      "actualKwh": 3080,
+      "gapKwh": -130,
+      "gapPct": -4.05,
+      "note": "Reference period"
+    },
+    {
+      "week": "W03",
+      "label": "Jan W3",
+      "dates": "Jan 15–21 2017",
+      "period": "train",
+      "expectedKwh": 3340,
+      "actualKwh": 3200,
+      "gapKwh": -140,
+      "gapPct": -4.19,
+      "note": "Reference period"
+    },
+    {
+      "week": "W04",
+      "label": "Jan W4",
+      "dates": "Jan 22–31 2017",
+      "period": "train",
+      "expectedKwh": 4100,
+      "actualKwh": 3950,
+      "gapKwh": -150,
+      "gapPct": -3.66,
+      "note": "Reference period — includes 10-day final week"
+    },
+    {
+      "week": "W05",
+      "label": "Feb W1",
+      "dates": "Feb 1–7 2017",
+      "period": "test",
+      "expectedKwh": 3480,
+      "actualKwh": 3180,
+      "gapKwh": -300,
+      "gapPct": -8.62,
+      "note": "Evaluation period — cloud cover episodes detected"
+    },
+    {
+      "week": "W06",
+      "label": "Feb W2",
+      "dates": "Feb 8–14 2017",
+      "period": "test",
+      "expectedKwh": 3620,
+      "actualKwh": 3210,
+      "gapKwh": -410,
+      "gapPct": -11.33,
+      "note": "Largest weekly gap — soiling + availability episode"
+    },
+    {
+      "week": "W07",
+      "label": "Feb W3",
+      "dates": "Feb 15–21 2017",
+      "period": "test",
+      "expectedKwh": 3760,
+      "actualKwh": 3490,
+      "gapKwh": -270,
+      "gapPct": -7.18,
+      "note": "Improved conditions mid-week"
+    },
+    {
+      "week": "W08",
+      "label": "Feb W4",
+      "dates": "Feb 22–28 2017",
+      "period": "test",
+      "expectedKwh": 3650,
+      "actualKwh": 3052,
+      "gapKwh": -598,
+      "gapPct": -16.38,
+      "note": "High irradiance + inverter clipping episode; worst week"
+    }
+  ],
+  "weeklyAttribution": [
+    {
+      "week": "W05",
+      "environmental": -85,
+      "equipment": -120,
+      "dataQuality": -18,
+      "unexplained": -77
+    },
+    {
+      "week": "W06",
+      "environmental": -60,
+      "equipment": -210,
+      "dataQuality": -25,
+      "unexplained": -115
+    },
+    {
+      "week": "W07",
+      "environmental": -110,
+      "equipment": -80,
+      "dataQuality": -10,
+      "unexplained": -70
+    },
+    {
+      "week": "W08",
+      "environmental": -90,
+      "equipment": -310,
+      "dataQuality": -30,
+      "unexplained": -168
+    }
+  ]
+}

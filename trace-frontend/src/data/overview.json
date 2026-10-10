@@ -1,0 +1,56 @@
+{
+  "_source": "NREL PVDAQ System 1430 — January–February 2017",
+  "plant": "Solar Plant Alpha",
+  "period": "Feb 2017 (Test Period)",
+  "performance": {
+    "expectedKwh": 14510,
+    "actualKwh": 12932,
+    "varianceKwh": -1578,
+    "variancePct": -10.87,
+    "trainMAE_kW": 11.60,
+    "testMAE_kW": 17.23,
+    "testR2": 0.9089,
+    "recoverableKwh": 620,
+    "recoverablePct": 39.3,
+    "commercialNote": "Synthetic tariff assumption — demonstration only"
+  },
+  "dataQuality": {
+    "overall": 94,
+    "completeness": 97,
+    "timestampQuality": 99,
+    "duplicateRate": 0.4,
+    "evidenceCoverage": 91
+  },
+  "topRecoveryOpportunities": [
+    {
+      "rank": 1,
+      "cause": "Equipment / Inverter",
+      "lossKwh": 730,
+      "potentialRecoveryKwh": 365,
+      "potentialRevenueSynthetic": 20075,
+      "controllability": "High",
+      "recurrence": "3 / 4 weeks",
+      "confidence": 91
+    },
+    {
+      "rank": 2,
+      "cause": "Soiling / Shading",
+      "lossKwh": 280,
+      "potentialRecoveryKwh": 196,
+      "potentialRevenueSynthetic": 10780,
+      "controllability": "High",
+      "recurrence": "4 / 4 weeks",
+      "confidence": 88
+    },
+    {
+      "rank": 3,
+      "cause": "Data Quality",
+      "lossKwh": 83,
+      "potentialRecoveryKwh": 58,
+      "potentialRevenueSynthetic": 3190,
+      "controllability": "Medium",
+      "recurrence": "4 / 4 weeks",
+      "confidence": 76
+    }
+  ]
+}

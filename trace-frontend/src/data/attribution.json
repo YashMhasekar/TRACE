@@ -1,0 +1,113 @@
+{
+  "waterfall": [
+    {
+      "id": "expected",
+      "label": "Expected Output",
+      "value": 310.0,
+      "type": "baseline",
+      "color": "#6366f1"
+    },
+    {
+      "id": "irradiance",
+      "label": "Irradiance",
+      "cause": "Irradiance",
+      "value": -8.2,
+      "type": "loss",
+      "category": "Resource",
+      "contributionPct": 35.65,
+      "classification": { "explainable": true, "controllable": false, "recoverable": false },
+      "confidence": 96,
+      "financialImpact": 492000,
+      "recurrence": "2 / 6 periods",
+      "evidenceIds": ["MTR-229", "WX-001"]
+    },
+    {
+      "id": "availability",
+      "label": "Availability",
+      "cause": "Availability",
+      "value": -5.7,
+      "type": "loss",
+      "category": "Equipment",
+      "contributionPct": 24.78,
+      "classification": { "explainable": true, "controllable": true, "recoverable": true },
+      "confidence": 94,
+      "financialImpact": 370500,
+      "potentialRecovery": 185000,
+      "potentialRecoveryGwh": 3.1,
+      "recurrence": "4 / 6 periods",
+      "evidenceIds": ["EVT-102", "MTR-229", "CALC-042"]
+    },
+    {
+      "id": "soiling",
+      "label": "Soiling",
+      "cause": "Soiling",
+      "value": -3.4,
+      "type": "loss",
+      "category": "Operations",
+      "contributionPct": 14.78,
+      "classification": { "explainable": true, "controllable": true, "recoverable": true },
+      "confidence": 88,
+      "financialImpact": 221000,
+      "potentialRecovery": 120000,
+      "potentialRecoveryGwh": 2.0,
+      "recurrence": "3 / 6 periods",
+      "evidenceIds": ["INS-014", "MTR-229"]
+    },
+    {
+      "id": "curtailment",
+      "label": "Curtailment",
+      "cause": "Curtailment",
+      "value": -2.9,
+      "type": "loss",
+      "category": "Grid",
+      "contributionPct": 12.61,
+      "classification": { "explainable": true, "controllable": false, "recoverable": false },
+      "confidence": 91,
+      "financialImpact": 188500,
+      "recurrence": "2 / 6 periods",
+      "evidenceIds": ["EVT-109", "SCADA-018"]
+    },
+    {
+      "id": "degradation",
+      "label": "Degradation",
+      "cause": "Degradation",
+      "value": -1.8,
+      "type": "loss",
+      "category": "Equipment",
+      "contributionPct": 7.83,
+      "classification": { "explainable": true, "controllable": false, "recoverable": false },
+      "confidence": 85,
+      "financialImpact": 117000,
+      "recurrence": "6 / 6 periods",
+      "evidenceIds": ["CALC-043"]
+    },
+    {
+      "id": "other",
+      "label": "Other / Residual",
+      "cause": "Other",
+      "value": -1.0,
+      "type": "loss",
+      "category": "Residual",
+      "contributionPct": 4.35,
+      "classification": { "explainable": false, "controllable": false, "recoverable": false },
+      "confidence": 60,
+      "financialImpact": 65000,
+      "recurrence": "—",
+      "evidenceIds": []
+    },
+    {
+      "id": "actual",
+      "label": "Actual Output",
+      "value": 287.0,
+      "type": "total",
+      "color": "#10b981"
+    }
+  ],
+  "reconciliation": {
+    "expected": 310.0,
+    "totalLoss": 23.0,
+    "actual": 287.0,
+    "residual": 0.0,
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "causes": [
+    {
+      "id": "availability",
+      "label": "Availability",
+      "currentLossGwh": 5.7,
+      "maxRecoverableGwh": 3.1,
+      "revenuePerGwh": 59649
+    },
+    {
+      "id": "soiling",
+      "label": "Soiling",
+      "currentLossGwh": 3.4,
+      "maxRecoverableGwh": 2.0,
+      "revenuePerGwh": 59649
+    },
+    {
+      "id": "curtailment",
+      "label": "Curtailment",
+      "currentLossGwh": 2.9,
+      "maxRecoverableGwh": 0.5,
+      "revenuePerGwh": 59649
+    }
+  ],
+  "improvementLevels": [10, 25, 50, 75, 100],
+  "sensitivityCurve": {
+    "availability": [
+      { "improvementPct": 10, "recoveredGwh": 0.31, "recoveredRevenue": 18500 },
+      { "improvementPct": 25, "recoveredGwh": 0.78, "recoveredRevenue": 46500 },
+      { "improvementPct": 50, "recoveredGwh": 1.55, "recoveredRevenue": 92500 },
+      { "improvementPct": 75, "recoveredGwh": 2.33, "recoveredRevenue": 138900 },
+      { "improvementPct": 100, "recoveredGwh": 3.10, "recoveredRevenue": 185000 }
+    ],
+    "soiling": [
+      { "improvementPct": 10, "recoveredGwh": 0.20, "recoveredRevenue": 12000 },
+      { "improvementPct": 25, "recoveredGwh": 0.50, "recoveredRevenue": 30000 },
+      { "improvementPct": 50, "recoveredGwh": 1.00, "recoveredRevenue": 60000 },
+      { "improvementPct": 75, "recoveredGwh": 1.50, "recoveredRevenue": 89500 },
+      { "improvementPct": 100, "recoveredGwh": 2.00, "recoveredRevenue": 120000 }
+    ],
+    "curtailment": [
+      { "improvementPct": 10, "recoveredGwh": 0.05, "recoveredRevenue": 2980 },
+      { "improvementPct": 25, "recoveredGwh": 0.13, "recoveredRevenue": 7750 },
+      { "improvementPct": 50, "recoveredGwh": 0.25, "recoveredRevenue": 14910 },
+      { "improvementPct": 75, "recoveredGwh": 0.38, "recoveredRevenue": 22660 },
+      { "improvementPct": 100, "recoveredGwh": 0.50, "recoveredRevenue": 29820 }
+    ]
+  }
+}

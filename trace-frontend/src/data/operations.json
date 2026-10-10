@@ -1,0 +1,97 @@
+{
+  "summary": {
+    "totalOperationalLossGwh": 11.2,
+    "controllableLossGwh": 9.1,
+    "recoverableLossGwh": 5.1
+  },
+  "causes": [
+    {
+      "id": "availability",
+      "cause": "Availability",
+      "category": "Equipment",
+      "lossGwh": 5.7,
+      "contributionPct": 24.78,
+      "controllability": "High",
+      "recoverability": "High",
+      "confidence": 94,
+      "frequency": "4 / 6 periods",
+      "assets": ["INV-03", "INV-07"],
+      "lastEvent": "2026-05-18",
+      "status": "Critical"
+    },
+    {
+      "id": "soiling",
+      "cause": "Soiling",
+      "category": "Operations",
+      "lossGwh": 3.4,
+      "contributionPct": 14.78,
+      "controllability": "High",
+      "recoverability": "High",
+      "confidence": 88,
+      "frequency": "3 / 6 periods",
+      "assets": ["PANEL-ARRAY-A", "PANEL-ARRAY-B"],
+      "lastEvent": "2026-05-26",
+      "status": "Warning"
+    },
+    {
+      "id": "curtailment",
+      "cause": "Curtailment",
+      "category": "Grid",
+      "lossGwh": 2.9,
+      "contributionPct": 12.61,
+      "controllability": "Low",
+      "recoverability": "Low",
+      "confidence": 91,
+      "frequency": "2 / 6 periods",
+      "assets": ["GRID-INTERCON"],
+      "lastEvent": "2026-05-22",
+      "status": "Warning"
+    },
+    {
+      "id": "maintenance-delay",
+      "cause": "Maintenance Delay",
+      "category": "Operations",
+      "lossGwh": 2.1,
+      "contributionPct": 9.13,
+      "controllability": "Medium",
+      "recoverability": "Medium",
+      "confidence": 81,
+      "frequency": "2 / 6 periods",
+      "assets": ["INV-03"],
+      "lastEvent": "2026-05-10",
+      "status": "Warning"
+    }
+  ],
+  "events": [
+    {
+      "id": "EVT-102",
+      "date": "2026-05-18",
+      "asset": "INV-03",
+      "type": "Unplanned Downtime",
+      "duration": "14.2h",
+      "lossGwh": 5.7,
+      "cause": "Availability",
+      "resolution": "Fault cleared by grid protection reset"
+    },
+    {
+      "id": "EVT-109",
+      "date": "2026-05-22",
+      "asset": "GRID-INTERCON",
+      "type": "Grid Curtailment",
+      "duration": "11.4h",
+      "lossGwh": 2.9,
+      "cause": "Curtailment",
+      "resolution": "Grid constraint lifted by operator"
+    },
+    {
+      "id": "EVT-094",
+      "date": "2026-05-10",
+      "asset": "INV-03",
+      "type": "Planned Maintenance",
+      "duration": "6.0h",
+      "lossGwh": 2.1,
+      "cause": "Maintenance Delay",
+      "resolution": "Maintenance completed; delayed by 3.5h due to parts availability"
+    }
+  ]
+}

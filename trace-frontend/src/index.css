@@ -1,0 +1,366 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRACE DESIGN SYSTEM
+   Inspired by NeetCode's soft dark visual language.
+   TRACE identity: soft charcoal surfaces, #615FFF primary brand,
+   professional energy-analytics hierarchy.
+   ═══════════════════════════════════════════════════════════════════════════
+
+   DARK TONAL HIERARCHY
+   ─────────────────────────────────────────────────────────────────────────
+   Main background (body)      #1D1C1E  ← bg-background
+   Navigation / header         #1A1A1A  ← bg-sidebar
+   Cards / panels              #393939  ← bg-card
+   Elevated / selected panels  #2A292C  ← bg-secondary / bg-accent / bg-popover
+   ─────────────────────────────────────────────────────────────────────────ا
+
+   STATUS
+   ─────────────────────────────────────────────────────────────────────────
+   Primary brand               #615FFF  (hover #7C86FF)
+   Success / recoverable       #10B981  (light #34D399)
+   Warning / recurring         #F59E0B  (light #FBBF24)
+   Critical / major loss       #EF4444
+   ─────────────────────────────────────────────────────────────────────────
+
+   TYPOGRAPHY
+   ─────────────────────────────────────────────────────────────────────────
+   UI:   Geist Variable
+   Mono: Geist Mono (data, IDs, calculations)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Theme token registration for Tailwind v4 ──────────────────────────── */
+@theme inline {
+  --font-sans:    'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Geist Mono', ui-monospace, 'Cascadia Code', monospace;
+  --font-heading: var(--font-sans);
+
+  /* Sidebar tokens (referenced by bg-sidebar etc.) */
+  --color-sidebar:                    var(--sidebar);
+  --color-sidebar-foreground:         var(--sidebar-foreground);
+  --color-sidebar-primary:            var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent:             var(--sidebar-accent);
+  --color-sidebar-accent-foreground:  var(--sidebar-accent-foreground);
+  --color-sidebar-border:             var(--sidebar-border);
+  --color-sidebar-ring:               var(--sidebar-ring);
+
+  /* Chart tokens */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Base semantic tokens */
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-popover:            var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:          var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --color-destructive:        var(--destructive);
+  --color-border:             var(--border);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+
+  /* TRACE border radius — 6/8/10/12px hierarchy, no excessive pills */
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  10px;
+  --radius-xl:  12px;
+  --radius-2xl: 16px;
+}
+
+/* ─── Light Theme ─────────────────────────────────────────────────────────── */
+:root {
+  --background:           #FAFAFA;
+  --foreground:           #111827;
+
+  --card:                 #FFFFFF;
+  --card-foreground:      #111827;
+
+  --popover:              #FFFFFF;
+  --popover-foreground:   #111827;
+
+  /* Primary — TRACE brand purple */
+  --primary:              #615FFF;
+  --primary-foreground:   #FFFFFF;
+
+  --secondary:            #F3F4F6;
+  --secondary-foreground: #111827;
+
+  --muted:                #F3F4F6;
+  --muted-foreground:     #6B7280;
+
+  --accent:               #EEF0FF;
+  --accent-foreground:    #615FFF;
+
+  --destructive:          #EF4444;
+
+  --border:               #E5E7EB;
+  --input:                #E5E7EB;
+  --ring:                 #615FFF;
+
+  --chart-1:              #615FFF;
+  --chart-2:              #10B981;
+  --chart-3:              #F59E0B;
+  --chart-4:              #EF4444;
+  --chart-5:              #7C86FF;
+
+  --radius:               0.625rem;
+
+  /* Sidebar (light) — slightly tinted panel */
+  --sidebar:                    #F5F5F7;
+  --sidebar-foreground:         #111827;
+  --sidebar-primary:            #615FFF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:             #EEF0FF;
+  --sidebar-accent-foreground:  #615FFF;
+  --sidebar-border:             #E5E7EB;
+  --sidebar-ring:               #615FFF;
+}
+
+/* ─── Dark Theme — TRACE Soft Charcoal ───────────────────────────────────── */
+/*
+  Tonal hierarchy (lightest → deepest):
+  ┌──────────────────────────────────────────────────────────────┐
+  │  Layer               Token           Hex       Role          │
+  ├──────────────────────────────────────────────────────────────┤
+  │  Main background     --background    #1D1C1E   body          │
+  │  Navigation/header   --sidebar       #1A1A1A   nav surface   │
+  │  Cards / panels      --card          #393939   containers    │
+  │  Elevated/selected   --accent/popup  #2A292C   focus state   │
+  └──────────────────────────────────────────────────────────────┘
+*/
+.dark {
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --background:           #1D1C1E;   /* main body — soft charcoal */
+  --foreground:           #F4F4F4;   /* primary text */
+
+  --card:                 #393939;   /* cards, panels */
+  --card-foreground:      #F4F4F4;
+
+  --popover:              #2A292C;   /* dropdowns, tooltips — elevated */
+  --popover-foreground:   #F4F4F4;
+
+  /* ── Primary brand ──────────────────────────────────────── */
+  --primary:              #615FFF;
+  --primary-foreground:   #FFFFFF;
+
+  /* ── Secondary / muted surfaces ────────────────────────── */
+  --secondary:            #2A292C;   /* elevated card / selected panel */
+  --secondary-foreground: #F4F4F4;
+
+  --muted:                #2A292C;   /* subtle container backgrounds */
+  --muted-foreground:     #B7B7B7;   /* metadata, secondary text */
+
+  --accent:               #2A292C;   /* hover / selected nav item bg */
+  --accent-foreground:    #615FFF;
+
+  /* ── Semantic ───────────────────────────────────────────── */
+  --destructive:          #EF4444;
+
+  /* Subtle border — white at low opacity, not a hard line */
+  --border:               rgba(255, 255, 255, 0.08);
+  --input:                rgba(255, 255, 255, 0.08);
+  --ring:                 #615FFF;
+
+  /* ── Charts ─────────────────────────────────────────────── */
+  --chart-1:              #615FFF;   /* brand purple */
+  --chart-2:              #10B981;   /* success green */
+  --chart-3:              #F59E0B;   /* warning amber */
+  --chart-4:              #EF4444;   /* critical red */
+  --chart-5:              #7C86FF;   /* primary hover / violet */
+
+  /* ── Sidebar / navigation surface ──────────────────────── */
+  --sidebar:                    #1A1A1A;   /* deeper than body */
+  --sidebar-foreground:         #F4F4F4;
+  --sidebar-primary:            #615FFF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:             #2A292C;   /* active nav item */
+  --sidebar-accent-foreground:  #615FFF;
+  --sidebar-border:             rgba(255, 255, 255, 0.06);
+  --sidebar-ring:               #615FFF;
+}
+
+/* ─── Base Layer ──────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+
+  /* Enforce monospace where needed */
+  code, kbd, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* ─── TRACE Utilities ─────────────────────────────────────────────────────── */
+@layer utilities {
+
+  /* ── Dot grid background — used in tree / graph areas ── */
+  .trace-dot-bg {
+    background-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.12) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  .dark .trace-dot-bg {
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  /* ── TRACE card — standard surface (#393939 dark) ─────── */
+  .trace-card {
+    background: var(--card);
+    border:     1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.20);
+  }
+
+  /* ── TRACE card — elevated / selected (#2A292C dark) ──── */
+  .trace-card-elevated {
+    background: var(--secondary);
+    border:     1px solid rgba(97, 95, 255, 0.40);
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ── Status text colours ─────────────────────────────── */
+  .status-critical { color: #EF4444; }
+  .status-warning  { color: #F59E0B; }
+  .status-success  { color: #10B981; }
+  .status-info     { color: #615FFF; }
+  .status-neutral  { color: #B7B7B7; }
+
+  /* ── Status background fills ─────────────────────────── */
+  .bg-status-critical { background-color: rgba(239,  68,  68, 0.12); }
+  .bg-status-warning  { background-color: rgba(245, 158,  11, 0.12); }
+  .bg-status-success  { background-color: rgba( 16, 185, 129, 0.12); }
+  .bg-status-info     { background-color: rgba( 97,  95, 255, 0.12); }
+
+  /* ── Status borders ──────────────────────────────────── */
+  .border-status-critical { border-color: rgba(239,  68,  68, 0.40); }
+  .border-status-warning  { border-color: rgba(245, 158,  11, 0.40); }
+  .border-status-success  { border-color: rgba( 16, 185, 129, 0.40); }
+  .border-status-info     { border-color: rgba( 97,  95, 255, 0.40); }
+
+  /* ── Primary button override ─────────────────────────── */
+  .btn-primary {
+    background:    #615FFF;
+    color:         #FFFFFF;
+    border:        1px solid #615FFF;
+    border-radius: 10px;
+    font-weight:   600;
+    transition:    background 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover {
+    background: #7C86FF;
+    box-shadow: 0 2px 12px rgba(97, 95, 255, 0.35);
+  }
+
+  /* ── Metric number style ─────────────────────────────── */
+  .metric-value {
+    font-size:      1.875rem;
+    font-weight:    700;
+    letter-spacing: -0.025em;
+    line-height:    1.1;
+  }
+
+  /* ── Monospace data value ────────────────────────────── */
+  .data-value {
+    font-family: var(--font-mono);
+    font-size:   0.8125rem;
+    font-weight: 600;
+  }
+
+  /* ── Page enter transition ───────────────────────────── */
+  .page-enter {
+    animation: pageIn 0.18s ease-out;
+  }
+
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0);   }
+  }
+}
+
+/* ─── React Flow overrides ────────────────────────────────────────────────── */
+.react-flow__node {
+  font-family: var(--font-sans) !important;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}
+
+/* Default edge colour — subtle gray, not neon */
+.react-flow__edge-path {
+  stroke: #6B7280;
+}
+
+/* Light mode controls */
+.react-flow__controls button {
+  background:   #FFFFFF;
+  border-color: #E5E7EB;
+  color:        #374151;
+}
+
+.react-flow__minimap {
+  background: #F5F5F7;
+  border:     1px solid #E5E7EB;
+}
+
+/* Dark mode React Flow */
+.dark .react-flow__background {
+  background-color: #1D1C1E;
+}
+
+.dark .react-flow__edge-path {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+.dark .react-flow__controls button {
+  background:   #393939;
+  border-color: rgba(255, 255, 255, 0.08);
+  color:        #F4F4F4;
+}
+
+.dark .react-flow__minimap {
+  background: #1A1A1A;
+  border:     1px solid rgba(255, 255, 255, 0.08);
+}

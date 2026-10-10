@@ -1,0 +1,124 @@
+{
+  "suggestedQuestions": [
+    "Why did we miss?",
+    "What was the largest controllable loss?",
+    "Which problem is recurring?",
+    "What is recoverable?",
+    "Is the revenue gap operational or commercial?",
+    "What evidence supports this conclusion?",
+    "What happens if we reduce downtime by 30%?"
+  ],
+  "responses": {
+    "why-did-we-miss": {
+      "question": "Why did we miss?",
+      "summary": "Solar Plant Alpha generated 287 GWh against an expected 310 GWh in May 2026, resulting in a modeled performance gap of 23.0 GWh (-7.4%). The gap is attributed across four primary factors by the TRACE analytics engine.",
+      "primaryCauses": [
+        { "cause": "Irradiance Deficit", "lossGwh": 8.2, "pct": 35.6, "controllable": false },
+        { "cause": "Availability (Inverter INV-03)", "lossGwh": 5.7, "pct": 24.8, "controllable": true },
+        { "cause": "Soiling", "lossGwh": 3.4, "pct": 14.8, "controllable": true },
+        { "cause": "Curtailment", "lossGwh": 2.9, "pct": 12.6, "controllable": false }
+      ],
+      "evidenceIds": ["EVT-102", "MTR-229", "CALC-042", "WX-001", "INS-014"],
+      "confidence": 94,
+      "recommendedActions": [
+        "Investigate Inverter INV-03 recurrence pattern — 4 events in 6 months.",
+        "Schedule panel cleaning for Array A before next high-irradiance period.",
+        "Review grid curtailment contract terms for compensation eligibility."
+      ],
+      "caveat": "Attribution values represent model-based contributions to the performance gap. These are not proven causal claims. Irradiance deficit is non-controllable and expected under actual weather conditions."
+    },
+    "largest-controllable-loss": {
+      "question": "What was the largest controllable loss?",
+      "summary": "Availability was the largest controllable contributor, with a model-attributed loss of 5.7 GWh (24.8% of total gap). This was driven primarily by a 14.2-hour unplanned downtime event on Inverter INV-03 on May 18, 2026.",
+      "primaryCauses": [
+        { "cause": "Availability (Inverter INV-03)", "lossGwh": 5.7, "pct": 24.8, "controllable": true }
+      ],
+      "evidenceIds": ["EVT-102", "CALC-042"],
+      "confidence": 94,
+      "recommendedActions": [
+        "Prioritize INV-03 fault root-cause analysis.",
+        "Implement predictive maintenance schedule for INV-03 based on 4-event history.",
+        "Simulate recovery potential using the Recovery Simulator."
+      ],
+      "caveat": "Controllability assessment is based on O&M categorisation. Some downtime may be unavoidable due to external grid protection requirements."
+    },
+    "recurring-problem": {
+      "question": "Which problem is recurring?",
+      "summary": "Availability is the highest-priority recurring issue, appearing in 4 of the last 6 analysis periods (66.7%). Soiling is also recurring at 50% frequency. Degradation is chronic (6/6 periods) but expected and low-controllability.",
+      "primaryCauses": [
+        { "cause": "Availability", "lossGwh": 5.7, "pct": 66.7, "controllable": true },
+        { "cause": "Soiling", "lossGwh": 3.4, "pct": 50.0, "controllable": true },
+        { "cause": "Degradation", "lossGwh": 1.8, "pct": 100.0, "controllable": false }
+      ],
+      "evidenceIds": ["EVT-102"],
+      "confidence": 88,
+      "recommendedActions": [
+        "Establish a predictive availability threshold alert for INV-03.",
+        "Set a cleaning schedule trigger at 2.0 g/m² soiling accumulation.",
+        "Track degradation trend against manufacturer warranty curve."
+      ],
+      "caveat": "Recurrence is assessed over 6 historical periods. Statistical significance increases with longer observation windows."
+    },
+    "what-is-recoverable": {
+      "question": "What is recoverable?",
+      "summary": "An estimated 6.8 GWh is potentially recoverable, representing approximately $450K in revenue opportunity. The two highest-value controllable causes are Availability (3.1 GWh, $185K) and Soiling (2.0 GWh, $120K).",
+      "primaryCauses": [
+        { "cause": "Availability", "lossGwh": 3.1, "pct": 45.6, "controllable": true },
+        { "cause": "Soiling", "lossGwh": 2.0, "pct": 29.4, "controllable": true },
+        { "cause": "Maintenance Delay", "lossGwh": 1.7, "pct": 25.0, "controllable": true }
+      ],
+      "evidenceIds": ["EVT-102", "INS-014"],
+      "confidence": 88,
+      "recommendedActions": [
+        "Use Recovery Simulator to model improvement scenarios.",
+        "Prioritise Availability recovery — highest ROI at $59.7/MWh.",
+        "Panel cleaning cost-benefit: estimated $8K cost vs $120K revenue recovery."
+      ],
+      "caveat": "Recovery estimates are simulated and not guaranteed. Actual recovery depends on operational execution and external conditions."
+    },
+    "revenue-gap-source": {
+      "question": "Is the revenue gap operational or commercial?",
+      "summary": "91.5% of the $1.5M revenue gap is attributable to generation shortfall (operational). The remaining 8.5% relates to commercial factors: curtailment adjustment, settlement reconciliation, and tariff variance.",
+      "primaryCauses": [
+        { "cause": "Generation Impact", "lossGwh": 1373000, "pct": 91.5, "controllable": true },
+        { "cause": "Commercial Factors", "lossGwh": 127000, "pct": 8.5, "controllable": false }
+      ],
+      "evidenceIds": ["MTR-229", "CALC-042", "EVT-109"],
+      "confidence": 96,
+      "recommendedActions": [
+        "Focus recovery effort on operational causes for maximum revenue impact.",
+        "Review curtailment compensation clause for EVT-109 eligibility.",
+        "Confirm settlement adjustment dispute with grid operator."
+      ],
+      "caveat": "Performance expectation is based on P50 model output. Commercial settlement is governed by PPA terms and is tracked independently."
+    },
+    "evidence-conclusion": {
+      "question": "What evidence supports this conclusion?",
+      "summary": "The attribution is supported by 8 evidence items across SCADA logs, meter readings, calculation models, weather data, and inspection reports. Key evidence includes EVT-102 (inverter downtime), WX-001 (irradiance deficit), and INS-014 (soiling inspection).",
+      "primaryCauses": [],
+      "evidenceIds": ["EVT-102", "MTR-229", "CALC-042", "CALC-043", "EVT-109", "WX-001", "INS-014", "SCADA-018"],
+      "confidence": 94,
+      "recommendedActions": [
+        "View the Evidence Explorer for full detail on each item.",
+        "Review Evidence Graph for the Availability attribution chain.",
+        "Verify CALC-042 reconciliation: Expected 310.0 - Actual 287.0 = 23.0 GWh (PASS)."
+      ],
+      "caveat": "Evidence coverage is 91% as per data quality assessment. 9% of the period has data gaps addressed by imputation."
+    },
+    "downtime-reduction": {
+      "question": "What happens if we reduce downtime by 30%?",
+      "summary": "A 30% reduction in availability downtime is estimated to recover approximately 0.93 GWh of generation, equivalent to $55.5K in additional revenue. This is a simulated estimate based on the recovery model.",
+      "primaryCauses": [
+        { "cause": "Availability (30% improvement)", "lossGwh": 0.93, "pct": 30.0, "controllable": true }
+      ],
+      "evidenceIds": ["EVT-102"],
+      "confidence": 81,
+      "recommendedActions": [
+        "Use Recovery Simulator to explore the full improvement curve from 10% to 100%.",
+        "Model cost of achieving 30% downtime reduction vs $55.5K revenue benefit.",
+        "Target INV-03 specifically — accounts for majority of availability loss."
+      ],
+      "caveat": "This is a simulated scenario. Results are estimated using the recovery model and should not be treated as guaranteed outcomes. Actual improvement depends on O&M execution."
+    }
+  }
+}

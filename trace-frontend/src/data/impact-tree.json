@@ -1,0 +1,365 @@
+{
+  "rootId": "root",
+  "metadata": {
+    "assetId": "solar-alpha",
+    "period": "2026-05",
+    "plantName": "Solar Plant Alpha",
+    "expectedGwh": 310.0,
+    "actualGwh": 287.0,
+    "totalLossGwh": 23.0
+  },
+  "nodes": [
+    {
+      "id": "root",
+      "label": "Performance Gap",
+      "sublabel": "-23.0 GWh · -7.4%",
+      "description": "Total model-attributed performance gap between expected and actual generation for May 2026.",
+      "type": "root",
+      "lossGwh": 23.0,
+      "contributionPct": 100,
+      "confidence": 99,
+      "status": "critical",
+      "classification": {
+        "explainable": true,
+        "controllable": false,
+        "recoverable": false
+      },
+      "evidenceIds": ["MTR-229", "CALC-042"]
+    },
+    {
+      "id": "resource",
+      "label": "Resource",
+      "sublabel": "-8.2 GWh · 35.6%",
+      "description": "Resource-related losses driven by weather and irradiance conditions outside plant control.",
+      "type": "category",
+      "category": "Resource",
+      "lossGwh": 8.2,
+      "contributionPct": 35.6,
+      "confidence": 96,
+      "status": "warning",
+      "classification": {
+        "explainable": true,
+        "controllable": false,
+        "recoverable": false
+      },
+      "evidenceIds": ["WX-001"],
+      "parentId": "root"
+    },
+    {
+      "id": "equipment",
+      "label": "Equipment",
+      "sublabel": "-7.5 GWh · 32.6%",
+      "description": "Equipment-related losses from availability failures and long-term degradation effects.",
+      "type": "category",
+      "category": "Equipment",
+      "lossGwh": 7.5,
+      "contributionPct": 32.6,
+      "confidence": 91,
+      "status": "critical",
+      "classification": {
+        "explainable": true,
+        "controllable": true,
+        "recoverable": true
+      },
+      "evidenceIds": ["EVT-102", "CALC-043"],
+      "parentId": "root"
+    },
+    {
+      "id": "operations",
+      "label": "Operations",
+      "sublabel": "-5.5 GWh · 23.9%",
+      "description": "Operational losses from soiling, maintenance delays, and preventable inefficiencies.",
+      "type": "category",
+      "category": "Operations",
+      "lossGwh": 5.5,
+      "contributionPct": 23.9,
+      "confidence": 85,
+      "status": "warning",
+      "classification": {
+        "explainable": true,
+        "controllable": true,
+        "recoverable": true
+      },
+      "evidenceIds": ["INS-014"],
+      "parentId": "root"
+    },
+    {
+      "id": "grid",
+      "label": "Grid",
+      "sublabel": "-2.9 GWh · 12.6%",
+      "description": "Grid-driven losses from curtailment instructions and grid constraint events.",
+      "type": "category",
+      "category": "Grid",
+      "lossGwh": 2.9,
+      "contributionPct": 12.6,
+      "confidence": 91,
+      "status": "info",
+      "classification": {
+        "explainable": true,
+        "controllable": false,
+        "recoverable": false
+      },
+      "evidenceIds": ["EVT-109", "SCADA-018"],
+      "parentId": "root"
+    },
+    {
+      "id": "irradiance",
+      "label": "Irradiance",
+      "sublabel": "-8.2 GWh · 35.6%",
+      "description": "Irradiance deficit of 6.3% vs P50 forecast due to above-average cloud cover in May 2026. Model-attributed contribution based on GHI measurement vs baseline.",
+      "type": "cause",
+      "category": "Resource",
+      "lossGwh": 8.2,
+      "contributionPct": 35.65,
+      "confidence": 96,
+      "status": "warning",
+      "classification": {
+        "explainable": true,
+        "controllable": false,
+        "recoverable": false
+      },
+      "recurrence": {
+        "occurrences": 2,
+        "eligiblePeriods": 6,
+        "frequencyPct": 33.3,
+        "status": "Intermittent"
+      },
+      "recovery": null,
+      "evidenceIds": ["WX-001", "MTR-229"],
+      "parentId": "resource"
+    },
+    {
+      "id": "availability",
+      "label": "Availability",
+      "sublabel": "-5.7 GWh · 24.8%",
+      "description": "Equipment availability loss attributed to Inverter INV-03 downtime event. 14.2h outage on May 18 due to grid protection trip. Evidence-supported attribution via SCADA event log and energy meter.",
+      "type": "cause",
+      "category": "Equipment",
+      "lossGwh": 5.7,
+      "contributionPct": 24.78,
+      "confidence": 94,
+      "status": "critical",
+      "classification": {
+        "explainable": true,
+        "controllable": true,
+        "recoverable": true
+      },
+      "recurrence": {
+        "occurrences": 4,
+        "eligiblePeriods": 6,
+        "frequencyPct": 66.7,
+        "status": "Recurring"
+      },
+      "recovery": {
+        "potentialGwh": 3.1,
+        "potentialRevenue": 185000
+      },
+      "evidenceIds": ["EVT-102", "MTR-229", "CALC-042"],
+      "parentId": "equipment"
+    },
+    {
+      "id": "degradation",
+      "label": "Degradation",
+      "sublabel": "-1.8 GWh · 7.8%",
+      "description": "Annual degradation model estimates 1.8 GWh loss from 0.5%/yr panel degradation. Chronic, fully expected, not controllable in-period.",
+      "type": "cause",
+      "category": "Equipment",
+      "lossGwh": 1.8,
+      "contributionPct": 7.83,
+      "confidence": 85,
+      "status": "info",
+      "classification": {
+        "explainable": true,
+        "controllable": false,
+        "recoverable": false
+      },
+      "recurrence": {
+        "occurrences": 6,
+        "eligiblePeriods": 6,
+        "frequencyPct": 100.0,
+        "status": "Chronic"
+      },
+      "recovery": null,
+      "evidenceIds": ["CALC-043"],
+      "parentId": "equipment"
+    },
+    {
+      "id": "soiling",
+      "label": "Soiling",
+      "sublabel": "-3.4 GWh · 14.8%",
+      "description": "Dust accumulation of 2.1 g/m² on Array A confirmed by O&M inspection. Soiling loss model attributes 3.4 GWh monthly loss from ~1.8% efficiency reduction.",
+      "type": "cause",
+      "category": "Operations",
+      "lossGwh": 3.4,
+      "contributionPct": 14.78,
+      "confidence": 88,
+      "status": "warning",
+      "classification": {
+        "explainable": true,
+        "controllable": true,
+        "recoverable": true
+      },
+      "recurrence": {
+        "occurrences": 3,
+        "eligiblePeriods": 6,
+        "frequencyPct": 50.0,
+        "status": "Watch"
+      },
+      "recovery": {
+        "potentialGwh": 2.0,
+        "potentialRevenue": 120000
+      },
+      "evidenceIds": ["INS-014", "MTR-229"],
+      "parentId": "operations"
+    },
+    {
+      "id": "maintenance",
+      "label": "Maint. Delay",
+      "sublabel": "-2.1 GWh · 9.1%",
+      "description": "Maintenance scheduling delay contributed to extended downtime exposure. Estimated contribution based on maintenance log vs optimal schedule.",
+      "type": "cause",
+      "category": "Operations",
+      "lossGwh": 2.1,
+      "contributionPct": 9.13,
+      "confidence": 81,
+      "status": "warning",
+      "classification": {
+        "explainable": true,
+        "controllable": true,
+        "recoverable": true
+      },
+      "recurrence": {
+        "occurrences": 2,
+        "eligiblePeriods": 6,
+        "frequencyPct": 33.3,
+        "status": "Intermittent"
+      },
+      "recovery": {
+        "potentialGwh": 1.2,
+        "potentialRevenue": 71600
+      },
+      "evidenceIds": ["EVT-102"],
+      "parentId": "operations"
+    },
+    {
+      "id": "curtailment",
+      "label": "Curtailment",
+      "sublabel": "-2.9 GWh · 12.6%",
+      "description": "Grid curtailment instruction received May 22–23 for frequency regulation. 11.4h active curtailment corroborated by SCADA log and grid operator event record.",
+      "type": "cause",
+      "category": "Grid",
+      "lossGwh": 2.9,
+      "contributionPct": 12.61,
+      "confidence": 91,
+      "status": "info",
+      "classification": {
+        "explainable": true,
+        "controllable": false,
+        "recoverable": false
+      },
+      "recurrence": {
+        "occurrences": 2,
+        "eligiblePeriods": 6,
+        "frequencyPct": 33.3,
+        "status": "Intermittent"
+      },
+      "recovery": null,
+      "evidenceIds": ["EVT-109", "SCADA-018"],
+      "parentId": "grid"
+    },
+    {
+      "id": "inv03",
+      "label": "Inverter INV-03",
+      "sublabel": "14.2h downtime · May 18",
+      "description": "Inverter INV-03 was unavailable for 14.2 hours due to a grid fault protection trip on May 18, 2026.",
+      "type": "asset",
+      "status": "critical",
+      "evidenceIds": ["EVT-102"],
+      "parentId": "availability"
+    },
+    {
+      "id": "evt102",
+      "label": "EVT-102",
+      "sublabel": "Grid protection trip · SCADA",
+      "description": "SCADA event EVT-102: Grid protection trip causing INV-03 unavailability for 14.2 hours on May 18, 2026.",
+      "type": "evidence",
+      "status": "critical",
+      "evidenceIds": ["EVT-102"],
+      "parentId": "inv03"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-root-resource",
+      "source": "root",
+      "target": "resource",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-root-equipment",
+      "source": "root",
+      "target": "equipment",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-root-operations",
+      "source": "root",
+      "target": "operations",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-root-grid",
+      "source": "root",
+      "target": "grid",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-resource-irradiance",
+      "source": "resource",
+      "target": "irradiance",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-equipment-availability",
+      "source": "equipment",
+      "target": "availability",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-equipment-degradation",
+      "source": "equipment",
+      "target": "degradation",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-operations-soiling",
+      "source": "operations",
+      "target": "soiling",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-operations-maintenance",
+      "source": "operations",
+      "target": "maintenance",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-grid-curtailment",
+      "source": "grid",
+      "target": "curtailment",
+      "relationship": "contributes_to"
+    },
+    {
+      "id": "e-availability-inv03",
+      "source": "availability",
+      "target": "inv03",
+      "relationship": "supported_by"
+    },
+    {
+      "id": "e-inv03-evt102",
+      "source": "inv03",
+      "target": "evt102",
+      "relationship": "supported_by"
+    }
+  ]
+}
