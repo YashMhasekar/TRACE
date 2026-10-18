@@ -1,0 +1,53 @@
+{
+  "model_metadata": {
+    "model_name": "TRACE Expected Generation Model",
+    "model_type": "GradientBoostingRegressor",
+    "training_period": "01/2017",
+    "training_period_label": "January 2017 reference period (quality-filtered)",
+    "validation_period": "02/2017",
+    "validation_period_label": "February 2017 unseen holdout",
+    "validation_type": "temporal_holdout_within_plant",
+    "features": [
+      "poa_irradiance__5041",
+      "module_temp__5043"
+    ],
+    "target": "ac_power__5074"
+  },
+  "model_parameters": {
+    "n_estimators": 150,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "random_state": 42
+  },
+  "training_metrics": {
+    "observations": 830,
+    "mae_kw": 11.597,
+    "rmse_kw": 19.532,
+    "r2": 0.9016,
+    "nmae_percent": 9.6,
+    "mean_actual_kw": 120.82
+  },
+  "validation_metrics": {
+    "observations": 909,
+    "mae_kw": 17.226,
+    "rmse_kw": 24.367,
+    "r2": 0.9089,
+    "nmae_percent": 11.37,
+    "mean_actual_kw": 151.45
+  },
+  "feature_importance": {
+    "poa_irradiance__5041": 0.9227,
+    "module_temp__5043": 0.0773
+  },
+  "domain_constraints": {
+    "low_irradiance_threshold_w_m2": 10,
+    "nameplate_capacity_kw": 720.72,
+    "constraints_applied_count": 3228
+  },
+  "output_statistics": {
+    "total_observations": 5664,
+    "expected_generation_available": 5595,
+    "variance_available": 5595,
+    "domain_constrained_observations": 3228
+  }
+}

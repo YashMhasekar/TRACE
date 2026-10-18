@@ -1,0 +1,5 @@
+primary_evidence_category,episode_count,episode_frequency_pct,total_observed_variance_kwh,total_attributed_kwh,total_unexplained_kwh,average_variance_kwh,max_variance_kwh,average_duration_minutes,recurrence_class,recurrence_score,recurrence_interpretation
+DATA_QUALITY,1,0.787,193.936,138.948,54.987,193.936,193.936,315.0,ISOLATED,9.45,The evidence category currently appears isolated.
+ENVIRONMENTAL,100,78.74,1724.5,1503.965,220.533,17.245,82.658,46.95,POTENTIALLY_STRUCTURAL,100.0,Repeated evidence category with substantial cumulative performance impact. Investigate whether a persistent operational or asset-level condition exists.
+EQUIPMENT_CONVERSION,24,18.898,2313.293,1670.607,642.689,96.387,535.131,102.5,POTENTIALLY_STRUCTURAL,75.12,Repeated evidence category with substantial cumulative performance impact. Investigate whether a persistent operational or asset-level condition exists.
+UNEXPLAINED,2,1.575,26.346,13.947,12.398,13.173,21.489,30.0,REPEATED,8.05,"The evidence category appears more than once, but the current sample is insufficient to classify it as a recurring or structural pattern."

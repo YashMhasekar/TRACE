@@ -1,12 +1,18 @@
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { useTheme } from '@/contexts/ThemeContext'
 import { Button } from '@/components/ui/button'
-import { Zap, TrendingUp, Eye, FileSearch, RotateCcw, Target, ArrowRight, CheckCircle2, Moon, Sun } from 'lucide-react'
+import { Zap, TrendingUp, Eye, FileSearch, RotateCcw, Target, ArrowRight, CheckCircle2, Moon, Sun, PlayCircle } from 'lucide-react'
 
 export function LandingPage() {
-  const { user, loading } = useAuth()
+  const { user, loading, signInAsDemo } = useAuth()
   const { theme, toggleTheme } = useTheme()
+  const navigate = useNavigate()
+
+  const handleDemo = () => {
+    signInAsDemo()
+    navigate('/')
+  }
 
   if (!loading && user) {
     return <Navigate to="/" replace />
@@ -42,6 +48,14 @@ export function LandingPage() {
               <Link to="/login">
                 <Button variant="ghost" size="sm">Log In</Button>
               </Link>
+              <button
+                onClick={handleDemo}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border border-[#615FFF]/40 text-[#615FFF] hover:bg-[#615FFF]/10 transition-colors"
+                aria-label="Try demo without signing up"
+              >
+                <PlayCircle className="w-3.5 h-3.5" />
+                Try Demo
+              </button>
               <Link to="/signup">
                 <Button size="sm" className="gap-1.5">
                   Get Started <ArrowRight className="w-3.5 h-3.5" />
@@ -71,17 +85,32 @@ export function LandingPage() {
             TRACE explains why your energy assets missed expected output — and shows you exactly what's recoverable.
           </p>
 
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <Link to="/signup">
-              <Button size="lg" className="gap-2 h-12 px-6">
-                Get Started <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button size="lg" variant="outline" className="h-12 px-6">
-                Log In
-              </Button>
-            </Link>
+          <div className="flex flex-col items-center gap-4 pt-4">
+            <div className="flex items-center gap-3">
+              <Link to="/signup">
+                <Button size="lg" className="gap-2 h-12 px-6">
+                  Get Started <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button size="lg" variant="outline" className="h-12 px-6">
+                  Log In
+                </Button>
+              </Link>
+            </div>
+
+            {/* Demo access for evaluators */}
+            <div className="flex flex-col items-center gap-1.5">
+              <button
+                onClick={handleDemo}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#615FFF]/15 to-[#7C86FF]/15 border border-[#615FFF]/30 text-[#615FFF] hover:from-[#615FFF]/25 hover:to-[#7C86FF]/25 hover:border-[#615FFF]/50 transition-all duration-200 shadow-sm"
+                aria-label="Access demo dashboard instantly without signing up"
+              >
+                <PlayCircle className="w-4 h-4" />
+                Try Live Demo — No Sign-Up Needed
+              </button>
+              <p className="text-xs text-muted-foreground">Evaluators: instant full access to the dashboard</p>
+            </div>
           </div>
         </div>
       </section>

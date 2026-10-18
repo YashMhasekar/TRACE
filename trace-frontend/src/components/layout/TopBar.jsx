@@ -1,4 +1,4 @@
-import { Menu, ChevronDown, Shield, Bell, Zap, LogOut, Moon, Sun, Check } from 'lucide-react'
+import { Menu, ChevronDown, Shield, Bell, Zap, LogOut, Moon, Sun, Check, PlayCircle } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 /** @param {{ onMenuClick: () => void }} props */
 export function TopBar({ onMenuClick }) {
-  const { user, signOut } = useAuth()
+  const { user, signOut, isDemo } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const { activePlantId, activePeriod, selectPlant } = usePlantContext()
   const navigate = useNavigate()
@@ -40,109 +40,138 @@ export function TopBar({ onMenuClick }) {
         'rgba(239,68,68,0.25)'
 
   return (
-    /*
-      Header surface: bg-sidebar resolves to
-        dark  → #1A1A1A  (same as sidebar — unified navigation surface)
-        light → near-white
-    */
     <header
-      className="sticky top-0 z-20 h-14 bg-sidebar border-b border-sidebar-border flex items-center px-4 gap-3"
+      className="sticky top-0 z-20 bg-sidebar border-b border-sidebar-border"
       style={{ backdropFilter: 'blur(8px)' }}
     >
-      {/* Mobile hamburger */}
-      <button
-        onClick={onMenuClick}
-        className="lg:hidden p-1.5 rounded-[6px] hover:bg-accent transition-colors"
-        aria-label="Open navigation menu"
-      >
-        <Menu className="w-5 h-5 text-muted-foreground" />
-      </button>
-
-      {/* Logo — mobile only */}
-      <div className="flex items-center gap-2 lg:hidden">
-        <div
-          className="w-6 h-6 rounded-md flex items-center justify-center"
-          style={{ background: '#615FFF' }}
+      {/* Demo mode banner */}
+      {isDemo && (
+        <div className="flex items-center justify-center gap-2 px-4 py-1.5 text-xs font-medium"
+          style={{ background: 'rgba(97,95,255,0.12)', borderBottom: '1px solid rgba(97,95,255,0.2)' }}
         >
-          <Zap className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
-        </div>
-        <span className="font-bold text-sm tracking-tight text-foreground">TRACE</span>
-      </div>
-
-      {/* Plant + Period */}
-      <div className="hidden sm:flex items-center gap-2">
-        <PlantSelector
-          plants={plants}
-          activePlantId={activePlantId}
-          plantName={plantName}
-          onSelect={selectPlant}
-        />
-        <StatChip label="Period" value={period} />
-      </div>
-
-      <div className="flex-1" />
-
-      {/* Data quality */}
-      <div
-        className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium"
-        style={{ color: dqColor, borderColor: dqBorderColor, background: `${dqColor}14` }}
-      >
-        <Shield className="w-3.5 h-3.5" />
-        <span>{dqScore}% DQ</span>
-      </div>
-
-      {/* Theme toggle */}
-      <button
-        onClick={toggleTheme}
-        className="p-1.5 rounded-[6px] hover:bg-accent transition-colors"
-        aria-label="Toggle theme"
-      >
-        {theme === 'light'
-          ? <Moon className="w-4 h-4 text-muted-foreground" />
-          : <Sun className="w-4 h-4 text-muted-foreground" />}
-      </button>
-
-      {/* Notifications */}
-      <button
-        className="p-1.5 rounded-[6px] hover:bg-accent transition-colors relative"
-        aria-label="Notifications"
-      >
-        <Bell className="w-4 h-4 text-muted-foreground" />
-        <span
-          className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
-          style={{ background: '#615FFF' }}
-        />
-      </button>
-
-      {/* User menu */}
-      <div className="relative group">
-        <button className="flex items-center gap-2 px-2.5 py-1.5 rounded-[8px] hover:bg-accent transition-colors">
-          <div
-            className="w-7 h-7 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(97,95,255,0.15)', border: '1px solid rgba(97,95,255,0.3)' }}
+          <PlayCircle className="w-3.5 h-3.5 shrink-0" style={{ color: '#615FFF' }} />
+          <span style={{ color: '#7C86FF' }}>
+            You're exploring TRACE in <strong style={{ color: '#615FFF' }}>Demo Mode</strong> — all data is sample data.
+          </span>
+          <button
+            onClick={handleSignOut}
+            className="ml-2 px-2 py-0.5 rounded text-xs font-semibold border transition-colors hover:opacity-80"
+            style={{ color: '#615FFF', borderColor: 'rgba(97,95,255,0.4)', background: 'rgba(97,95,255,0.1)' }}
           >
-            <span className="text-xs font-semibold" style={{ color: '#615FFF' }}>
-              {user?.email?.[0]?.toUpperCase() || 'U'}
-            </span>
-          </div>
-          <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+            Exit Demo
+          </button>
+        </div>
+      )}
+
+      {/* Main toolbar row */}
+      <div className="h-14 flex items-center px-4 gap-3">
+        {/* Mobile hamburger */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-1.5 rounded-[6px] hover:bg-accent transition-colors"
+          aria-label="Open navigation menu"
+        >
+          <Menu className="w-5 h-5 text-muted-foreground" />
         </button>
 
-        {/* Dropdown */}
-        <div className="absolute right-0 top-full mt-2 w-56 rounded-[10px] border border-border bg-popover shadow-[0_4px_18px_rgba(0,0,0,0.35)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-          <div className="p-3 border-b border-border">
-            <p className="text-sm font-medium text-foreground truncate">{user?.email}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Signed in</p>
+        {/* Logo — mobile only */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <div
+            className="w-6 h-6 rounded-md flex items-center justify-center"
+            style={{ background: '#615FFF' }}
+          >
+            <Zap className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
           </div>
-          <div className="p-2">
-            <button
-              onClick={handleSignOut}
-              className="w-full flex items-center gap-2 px-3 py-2 rounded-[8px] text-sm hover:bg-muted transition-colors"
-              style={{ color: '#EF4444' }}
+          <span className="font-bold text-sm tracking-tight text-foreground">TRACE</span>
+        </div>
+
+        {/* Plant + Period */}
+        <div className="hidden sm:flex items-center gap-2">
+          <PlantSelector
+            plants={plants}
+            activePlantId={activePlantId}
+            plantName={plantName}
+            onSelect={selectPlant}
+          />
+          <StatChip label="Period" value={period} />
+        </div>
+
+        <div className="flex-1" />
+
+        {/* Data quality */}
+        <div
+          className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium"
+          style={{ color: dqColor, borderColor: dqBorderColor, background: `${dqColor}14` }}
+        >
+          <Shield className="w-3.5 h-3.5" />
+          <span>{dqScore}% DQ</span>
+        </div>
+
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          className="p-1.5 rounded-[6px] hover:bg-accent transition-colors"
+          aria-label="Toggle theme"
+        >
+          {theme === 'light'
+            ? <Moon className="w-4 h-4 text-muted-foreground" />
+            : <Sun className="w-4 h-4 text-muted-foreground" />}
+        </button>
+
+        {/* Notifications */}
+        <button
+          className="p-1.5 rounded-[6px] hover:bg-accent transition-colors relative"
+          aria-label="Notifications"
+        >
+          <Bell className="w-4 h-4 text-muted-foreground" />
+          <span
+            className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
+            style={{ background: '#615FFF' }}
+          />
+        </button>
+
+        {/* User menu */}
+        <div className="relative group">
+          <button className="flex items-center gap-2 px-2.5 py-1.5 rounded-[8px] hover:bg-accent transition-colors">
+            <div
+              className="w-7 h-7 rounded-full flex items-center justify-center"
+              style={{ background: 'rgba(97,95,255,0.15)', border: '1px solid rgba(97,95,255,0.3)' }}
             >
-              <LogOut className="w-4 h-4" />
-              Sign Out
-            </button>
+              <span className="text-xs font-semibold" style={{ color: '#615FFF' }}>
+                {isDemo ? 'D' : (user?.email?.[0]?.toUpperCase() || 'U')}
+              </span>
+            </div>
+            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
+
+          {/* Dropdown */}
+          <div className="absolute right-0 top-full mt-2 w-56 rounded-[10px] border border-border bg-popover shadow-[0_4px_18px_rgba(0,0,0,0.35)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+            <div className="p-3 border-b border-border">
+              {isDemo ? (
+                <>
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <PlayCircle className="w-3.5 h-3.5 shrink-0" style={{ color: '#615FFF' }} />
+                    <p className="text-sm font-semibold" style={{ color: '#615FFF' }}>Demo Mode</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground">Evaluator — sample data only</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-sm font-medium text-foreground truncate">{user?.email}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Signed in</p>
+                </>
+              )}
+            </div>
+            <div className="p-2">
+              <button
+                onClick={handleSignOut}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-[8px] text-sm hover:bg-muted transition-colors"
+                style={{ color: '#EF4444' }}
+              >
+                <LogOut className="w-4 h-4" />
+                {isDemo ? 'Exit Demo' : 'Sign Out'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
