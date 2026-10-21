@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth'
 import { auth, googleProvider } from '@/lib/firebase'
+import { setDemoMode } from '@/lib/demoMode'
 
 const AuthContext = createContext(null)
 
@@ -59,6 +60,7 @@ export function AuthProvider({ children }) {
   const signOut = async () => {
     if (isDemo) {
       // Clear demo session without touching Firebase
+      setDemoMode(false)
       setUser(null)
       setIsDemo(false)
       return
@@ -68,6 +70,7 @@ export function AuthProvider({ children }) {
 
   /** Bypasses Firebase — sets a synthetic demo user directly in state */
   const signInAsDemo = () => {
+    setDemoMode(true)
     setUser(DEMO_USER)
     setIsDemo(true)
     setLoading(false)

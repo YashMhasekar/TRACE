@@ -1,7 +1,9 @@
 import { apiFetch } from '@/lib/api'
+import { isDemoMode } from '@/lib/demoMode'
 import fallback from '@/data/simulation.json'
 
 export async function fetchSimulationData(plantId = 'PLANT-002') {
+  if (isDemoMode()) return fallback
   try {
     return await apiFetch(`/api/simulation?plant_id=${plantId}`)
   } catch {
@@ -10,13 +12,18 @@ export async function fetchSimulationData(plantId = 'PLANT-002') {
 }
 
 export async function simulateRecovery(causeId, improvementPct) {
-  try {
-    return await apiFetch('/api/simulation/simulate', {
-      method: 'POST',
-      body: JSON.stringify({ causeId, improvementPct }),
-    })
-  } catch {
-    // local interpolation fallback
+  // In demo mode skip the network and run local interpolation immediately
+  if (!isDemoMode()) {
+    try {
+      return await apiFetch('/api/simulation/simulate', {
+        method: 'POST',
+        body: JSON.stringify({ causeId, improvementPct }),
+      })
+    } catch {
+      // fall through to local interpolation
+    }
+  }
+  // local interpolation fallback
     const data = fallback
     const curve = data.sensitivityCurve[causeId]
     const cause = data.causes.find((c) => c.id === causeId)
@@ -39,5 +46,4 @@ export async function simulateRecovery(causeId, improvementPct) {
       maxRecoverableGwh: cause.maxRecoverableGwh,
       recoveredGwh, recoveredRevenue, isEstimate: true,
     }
-  }
 }

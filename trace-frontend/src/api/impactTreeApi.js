@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import { isDemoMode } from '@/lib/demoMode'
 import fallback from '@/data/impact-tree.json'
 
 function mergeTreeData(apiData) {
@@ -45,6 +46,7 @@ function mergeTreeData(apiData) {
 }
 
 export async function fetchImpactTree(plantId = 'PLANT-002') {
+  if (isDemoMode()) return fallback
   try {
     const data = await apiFetch(`/api/impact-tree?plant_id=${plantId}`)
     return mergeTreeData(data)

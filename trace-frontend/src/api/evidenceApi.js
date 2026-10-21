@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import { isDemoMode } from '@/lib/demoMode'
 import fallback from '@/data/evidence.json'
 
 const CATEGORY_MAP = {
@@ -35,6 +36,7 @@ function transformEvidenceItem(item) {
 }
 
 export async function fetchEvidence(plantId = 'PLANT-002') {
+  if (isDemoMode()) return fallback
   try {
     const raw = await apiFetch(`/api/evidence?plant_id=${plantId}`)
     const rawItems = raw.items || []

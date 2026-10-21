@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import { isDemoMode } from '@/lib/demoMode'
 import fallback from '@/data/commercial.json'
 
 function transformCommercial(raw) {
@@ -70,6 +71,7 @@ function transformCommercial(raw) {
 }
 
 export async function fetchCommercial(plantId = 'PLANT-002') {
+  if (isDemoMode()) return fallback
   try {
     const raw = await apiFetch(`/api/commercial?plant_id=${plantId}`)
     return transformCommercial(raw)

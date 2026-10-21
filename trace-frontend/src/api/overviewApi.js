@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import { isDemoMode } from '@/lib/demoMode'
 import overviewFallback from '@/data/overview.json'
 import plantsFallback from '@/data/plants.json'
 
@@ -36,6 +37,7 @@ function normalizeOverview(data) {
 }
 
 export async function fetchOverview(plantId = 'PLANT-002') {
+  if (isDemoMode()) return normalizeOverview(overviewFallback)
   try {
     const data = await apiFetch(`/api/overview?plant_id=${plantId}`)
     return normalizeOverview(data)
@@ -45,6 +47,7 @@ export async function fetchOverview(plantId = 'PLANT-002') {
 }
 
 export async function fetchPlants() {
+  if (isDemoMode()) return plantsFallback.plants
   try {
     const data = await apiFetch('/api/plants')
     // normalize: backend returns plant_id, frontend also wants id

@@ -15,6 +15,7 @@
 
 import { API_BASE } from '@/lib/api'
 import { auth } from '@/lib/firebase'
+import { isDemoMode } from '@/lib/demoMode'
 import aiData from '@/data/ai-investigator.json'
 
 // ── Auth header helper ─────────────────────────────────────────────────────
@@ -31,6 +32,7 @@ async function _authHeaders() {
 
 // ── Suggested questions ────────────────────────────────────────────────────
 export async function fetchSuggestedQuestions() {
+  if (isDemoMode()) return aiData.suggestedQuestions
   try {
     const headers = await _authHeaders()
     const res = await fetch(`${API_BASE}/api/ai/questions`, { headers })
@@ -55,7 +57,27 @@ export async function fetchSuggestedQuestions() {
 export function streamChat(messages, onChunk, onDone, onError) {
   const controller = new AbortController()
 
-    ; (async () => {
+  // In demo mode return a static reply without touching the network
+  if (isDemoMode()) {
+    const demoReply =
+      'This is a demo session. The AI Investigator is available with a live backend. ' +
+      'Sign up or log in to run live AI analysis on your own plant data.'
+    let i = 0
+    const words = demoReply.split(' ')
+    const interval = setInterval(() => {
+      if (controller.signal.aborted) { clearInterval(interval); return }
+      if (i < words.length) {
+        onChunk((i === 0 ? '' : ' ') + words[i])
+        i++
+      } else {
+        clearInterval(interval)
+        onDone()
+      }
+    }, 30)
+    return controller
+  }
+
+  ; (async () => {
       try {
         const headers = await _authHeaders()
         const res = await fetch(`${API_BASE}/api/ai/chat/stream`, {
@@ -134,6 +156,28 @@ export async function sendChat(messages) {
 
 // ── Legacy single-question (kept for backward compat) ─────────────────────
 export async function investigate(question) {
+  if (isDemoMode()) {
+    await new Promise((r) => setTimeout(r, 150))
+    const keyMap = {
+      'Why did we miss our generation target?': 'why-did-we-miss',
+      'What was the largest controllable loss this period?': 'largest-controllable-loss',
+      'Which performance problem is recurring?': 'recurring-problem',
+      'How much generation is realistically recoverable?': 'what-is-recoverable',
+      'Is the revenue gap driven by generation or commercial terms?': 'revenue-gap-source',
+      'What evidence supports the equipment attribution?': 'evidence-conclusion',
+    }
+    const key = keyMap[question]
+    if (key && aiData.responses?.[key]) return aiData.responses[key]
+    return {
+      question,
+      summary: 'Static demo response. Sign up to run live AI analysis on your plant data.',
+      primaryCauses: [],
+      evidenceIds: [],
+      confidence: null,
+      recommendedActions: ['Sign up for a full account to enable the live AI Investigator.'],
+      caveat: 'Demo mode — static data only.',
+    }
+  }
   try {
     const headers = await _authHeaders()
     const res = await fetch(`${API_BASE}/api/ai/investigate`, {

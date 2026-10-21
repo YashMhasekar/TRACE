@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api'
+import { isDemoMode } from '@/lib/demoMode'
 import fallback from '@/data/operations.json'
 
 const CATEGORY_LABEL = {
@@ -78,6 +79,7 @@ function transformOperations(raw) {
 }
 
 export async function fetchOperations(plantId = 'PLANT-002') {
+  if (isDemoMode()) return fallback
   try {
     const raw = await apiFetch(`/api/operations?plant_id=${plantId}`)
     return transformOperations(raw)
